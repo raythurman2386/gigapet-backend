@@ -11,7 +11,7 @@ authRouter
       user.password = hashPw;
 
       const id = await Parents.add(user);
-      return res.status(201).json(id);
+      return res.json(id);
     } catch (error) {
       next(error);
     }
