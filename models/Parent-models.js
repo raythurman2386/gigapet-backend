@@ -7,7 +7,7 @@ function find() {
 
 // Findby
 function findBy(filter) {
-  return db('parents').where(filter).select("id", "username", "password", "email");
+  return db('parents').where(filter).first();
 }
 
 // findById

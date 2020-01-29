@@ -20,7 +20,7 @@ authRouter
   .post('/login', async (req, res, next) => {
     try {
       const { username, password } = req.body;
-      const user = await Parents.findBy(username);
+      const user = await Parents.findBy({ username });
       const verifyPw = await bcrypt.compare(password, user.password);
 
       if(user && verifyPw) {
