@@ -1,4 +1,4 @@
-const db = require('../../data/db-config');
+const db = require('../data/db-config');
 
 // Find
 function find() {
@@ -10,10 +10,15 @@ function findBy(filter) {
   return db('parents').where(filter).select("id", "username", "password", "email");
 }
 
+// findById
+function findById(id) {
+  return db('parents').where({id}).select("id", "username", "email");
+}
+
 // add
 async function add(user) {
   const [id] = await db('parents').insert(user).returning("*");
-  return findBy({id});
+  return findById(id);
 }
 
 // update
