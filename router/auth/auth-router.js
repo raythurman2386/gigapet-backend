@@ -10,7 +10,7 @@ authRouter
       const hashPw = await bcrypt.hash(user.password, 12);
       user.password = hashPw;
 
-      const [id] = await Parents.addUser(user);
+      const [id] = await Parents.add(user);
       return res.status(201).json(user);
     } catch (error) {
       next(error);
