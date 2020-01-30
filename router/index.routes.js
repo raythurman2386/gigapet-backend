@@ -5,5 +5,5 @@ const foodRouter = require('./foods/food-router')
 module.exports = server => {
   server.use('/api/auth', authRouter)
   server.use('/api/child', childRouter)
-  server.use('/api/foods', foodRouter)
+  // server.use('/api/foods', foodRouter)
 }
