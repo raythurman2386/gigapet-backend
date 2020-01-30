@@ -5,6 +5,8 @@ const db = require('../../models/Child-models')
 childRouter
   .get('/', async (req, res, next) => {
     try {
+      const children = await db.find()
+      return res.status(200).json(children)
     } catch (error) {
       next(error)
     }
@@ -13,6 +15,8 @@ childRouter
   // getById
   .get('/:id', async (req, res, next) => {
     try {
+      const child = await db.findBy({ id: req.params.id })
+      return res.status(200).json(child)
     } catch (error) {
       next(error)
     }
@@ -21,6 +25,8 @@ childRouter
   // addChild
   .post('/', async (req, res, next) => {
     try {
+      const newChild = await db.addChild(req.body)
+      return res.status(201).json(newChild)
     } catch (error) {
       next(error)
     }
@@ -37,6 +43,14 @@ childRouter
   // delete
   .delete('/:id', async (req, res, next) => {
     try {
+      const child = await db.findBy({ id: req.params.id })
+
+      if (child.length === 0) {
+        return res.status(404).json({ message: 'That child was not found' })
+      }
+
+      const response = await db.remove(req.params.id)
+      res.json(response)
     } catch (error) {
       next(error)
     }
