@@ -1,12 +1,40 @@
 const foodRouter = require('express').Router()
-// get -- this will get all of the parents children
 
-// getById
+foodRouter
+// Gets all of a childs food
+  .get('/', async (req, res, next) => {
+    try {
+      
+    } catch (error) {
+      next(error)
+    }
+  })
 
-// addChild
+// addFood
+  .post('/', async (req, res, next) => {
+    try {
+      
+    } catch (error) {
+      next(error)
+    }
+  })
 
 // update
+  .put('/:id', async (req, res, next) => {
+    try {
+      
+    } catch (error) {
+      next(error)
+    }
+  })
 
 // delete
+  .delete('/:id', async (req, res, next) => {
+    try {
+      
+    } catch (error) {
+      next(error)
+    }
+  })
 
 module.exports = foodRouter
