@@ -1,6 +1,7 @@
 exports.up = async function(knex) {
   await knex.schema.createTable("foods", tbl => {
     tbl.increments("id");
+    tbl.string("name").notNullable();
     tbl.timestamps(true, true);
     tbl
       .integer("child_id")
