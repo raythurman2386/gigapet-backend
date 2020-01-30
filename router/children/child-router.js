@@ -15,7 +15,7 @@ childRouter
   // getById
   .get('/:id', async (req, res, next) => {
     try {
-      const child = await db.findBy({ id: req.params.id })
+      const [child] = await db.findBy({ id: req.params.id })
       return res.status(200).json(child)
     } catch (error) {
       next(error)

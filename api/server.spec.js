@@ -64,3 +64,42 @@ describe('login routes', () => {
     expect(res.body.message).toContain('Welcome')
   })
 })
+
+describe('child routes', () => {
+  test('should get children', async () => {
+    const res = await supertest(server).get('/api/child')
+
+    expect(res.status).toBe(200)
+    expect(res.type).toBe('application/json')
+    expect(res.body.length).toBeGreaterThan(0)
+  })
+
+  test('should get child with id 1', async () => {
+    const res = await supertest(server).get('/api/child/1')
+
+    expect(res.status).toBe(200)
+    expect(res.type).toBe('application/json')
+    expect(res.body.name).toMatch(/bob/i)
+    // console.log(res.body)
+  })
+
+  test('should add child to db', async () => {
+    const newChild = { name: 'test', monster_id: '1', parent_id: '1' }
+
+    const res = await supertest(server)
+      .post('/api/child')
+      .send(newChild)
+
+    expect(res.status).toBe(201)
+    expect(res.type).toBe('application/json')
+    expect(res.body[0]).toBe(6)
+  })
+
+  test('should delete a child', async () => {
+    const res = await supertest(server).delete('/api/child/1')
+
+    expect(res.status).toBe(200)
+    expect(res.type).toBe('application/json')
+    expect(res.body).toBe(1)
+  })
+})
