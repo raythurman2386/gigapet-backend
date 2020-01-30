@@ -1,46 +1,42 @@
 const childRouter = require('express').Router()
+const db = require('../../models/Child-models')
 // get -- this will get all of the parents children
 
 childRouter
   .get('/', async (req, res, next) => {
     try {
-      
     } catch (error) {
       next(error)
     }
   })
 
-// getById
+  // getById
   .get('/:id', async (req, res, next) => {
     try {
-      
     } catch (error) {
       next(error)
     }
   })
 
-// addChild
+  // addChild
   .post('/', async (req, res, next) => {
     try {
-      
     } catch (error) {
       next(error)
     }
   })
 
-// update
+  // update
   .put('/:id', async (req, res, next) => {
     try {
-      
     } catch (error) {
       next(error)
     }
   })
 
-// delete
+  // delete
   .delete('/:id', async (req, res, next) => {
     try {
-      
     } catch (error) {
       next(error)
     }
