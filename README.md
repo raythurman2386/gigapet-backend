@@ -1,31 +1,27 @@
 <a name="top"></a>
+
 # Gigapet backend
 
+Gigapet API for PTCT Build Week, Jan 2020 deployed at `https://gigapet-backend.herokuapp.com/`
 
-Gigapet API for PTCT Build Week, Jan 2020
-
-- [Auth](#auth)
-	- [Logs in a registered parent](#logs-in-a-registered-parent)
-	- [Registers a New Parent](#registers-a-new-user)
-	
-
+- [Auth](#auth) - [Logs in a registered parent](#logs-in-a-registered-parent) - [Registers a New Parent](#registers-a-new-user)
 
 # <a name='auth'></a> Auth
 
 ## <a name='logs-in-a-registered-parent'></a> Logs in a registered parent
+
 [Back to top](#top)
 
 <p>Log a parent in, receive token on successful login</p>
 
-	POST /api/auth/login
-
+    POST /api/auth/login
 
 ### Parameters
 
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-|  username | String | <p>The Parent's username</p>|
-|  password | String | <p>The Parent's password</p>|
+| Name     | Type   | Description                  |
+| :------- | :----- | :--------------------------- |
+| username | String | <p>The Parent's username</p> |
+| password | String | <p>The Parent's password</p> |
 
 ### Param Examples
 
@@ -52,9 +48,9 @@ Success-Response:
 
 ### 200
 
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-|  message | json | <p>Welcome Message</p>|
+| Name    | Type | Description            |
+| :------ | :--- | :--------------------- |
+| message | json | <p>Welcome Message</p> |
 
 ### Error Response
 
@@ -65,6 +61,7 @@ Error-Response:
     "username": "Required"
 }
 ```
+
 Error-Response:
 
 ```
@@ -73,6 +70,7 @@ Error-Response:
     "error": "User Not Found"
 }
 ```
+
 Error-Response:
 
 ```
@@ -81,25 +79,23 @@ Error-Response:
     "error": "Invalid Credentials"
 }
 ```
+
 ## <a name='registers-a-new-parent'></a> Registers a New Parent
+
 [Back to top](#top)
 
 <p>Registers a New Parent to the Database</p>
 
-	POST /api/auth/register
-
-
-
-
+    POST /api/auth/register
 
 ### Parameter Parameters
 
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-|  Parent name | String | <p>The Parent's Name
-|  username | String | <p>The parent's Username</p>|
-|  password | String | <p>The parent's Password</p>|
-|  email | String | <p>The parent's Email</p>|
+| Name        | Type   | Description                  |
+| :---------- | :----- | :--------------------------- |
+| Parent name | String | <p>The Parent's Name         |
+| username    | String | <p>The parent's Username</p> |
+| password    | String | <p>The parent's Password</p> |
+| email       | String | <p>The parent's Email</p>    |
 
 ### Param Examples
 
@@ -127,9 +123,9 @@ Success-Response:
 
 ### 201
 
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-|  message | json | <p>Welcome Message</p>|
+| Name    | Type | Description            |
+| :------ | :--- | :--------------------- |
+| message | json | <p>Welcome Message</p> |
 
 ### Error Response
 
@@ -140,6 +136,7 @@ Error-Response:
     "username": "Required"
 }
 ```
+
 Error-Response:
 
 ```
@@ -148,6 +145,7 @@ Error-Response:
     "error": "Username is already taken"
 }
 ```
+
 Error-Response:
 
 ```
