@@ -1,3 +1,4 @@
+const childRouter = require('express').Router()
 // get -- this will get all of the parents children
 
 // getById
@@ -7,3 +8,5 @@
 // update
 
 // delete
+
+module.exports = childRouter

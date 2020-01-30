@@ -1,7 +1,12 @@
-// getFoods
+const foodRouter = require('express').Router()
+// get -- this will get all of the parents children
 
-// addFood
+// getById
 
-// updateFood
+// addChild
 
-// deleteFood
+// update
+
+// delete
+
+module.exports = foodRouter
