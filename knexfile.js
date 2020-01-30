@@ -1,44 +1,36 @@
-require('dotenv').config();
+require('dotenv').config()
 const pg = require('pg')
 
-pg.defaults.ssl = true;
+pg.defaults.ssl = true
+
+const sqlite = {
+  client: 'sqlite3',
+  useNullAsDefault: true,
+  migrations: {
+    directory: './data/migrations'
+  },
+  seeds: {
+    directory: './data/seeds'
+  },
+  pool: {
+    afterCreate: (conn, done) => {
+      conn.run('PRAGMA foreign_keys=ON', done)
+    }
+  }
+}
 
 module.exports = {
   development: {
-    client: 'sqlite3',
-    useNullAsDefault: true,
+    ...sqlite,
     connection: {
       filename: './data/gigapet.db3'
-    },
-    migrations: {
-      directory: './data/migrations'
-    },
-    seeds: {
-      directory: './data/seeds'
-    },
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      }
     }
   },
 
   test: {
-    client: 'sqlite3',
-    useNullAsDefault: true,
+    ...sqlite,
     connection: {
       filename: './data/test.db3'
-    },
-    migrations: {
-      directory: './data/migrations'
-    },
-    seeds: {
-      directory: './data/seeds'
-    },
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      }
     }
   },
 
@@ -53,4 +45,4 @@ module.exports = {
       directory: './data/seeds'
     }
   }
-};
+}

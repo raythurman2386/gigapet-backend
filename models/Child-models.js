@@ -19,6 +19,12 @@ function findByParent(id) {
     .returning('*')
 }
 
+function addChild(child) {
+  return db('child')
+    .insert(child)
+    .returning('*')
+}
+
 // update
 function update(id, changes) {
   return db('child')
@@ -37,8 +43,8 @@ function remove(id) {
 module.exports = {
   find,
   findBy,
-  findById,
   findByParent,
+  addChild,
   update,
   remove
 }

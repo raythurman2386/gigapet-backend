@@ -33,3 +33,11 @@ function remove(id) {
     .where({ id })
     .del()
 }
+
+module.exports = {
+  find,
+  findBy,
+  findByChild,
+  update,
+  remove
+}

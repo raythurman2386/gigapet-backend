@@ -9,7 +9,10 @@
     "test": "cross-env NODE_ENV=test jest --watch --verbose",
     "migrate": "cross-env NODE_ENV=development knex migrate:latest",
     "rollback": "cross-env NODE_ENV=development knex migrate:rollback",
-    "seed": "cross-env NODE_ENV=development knex seed:run"
+    "migrate:test": "cross-env NODE_ENV=test knex migrate:latest",
+    "rollback:test": "cross-env NODE_ENV=test knex migrate:rollback",
+    "seed": "cross-env NODE_ENV=development knex seed:run",
+    "seed:test": "cross-env NODE_ENV=test knex seed:run"
   },
   "keywords": [],
   "author": "Raymond Thurman",
