@@ -37,6 +37,14 @@ childRouter
   .put('/:id', async (req, res, next) => {
     try {
       // TODO:
+      const child = await db.findBy({ id: req.params.id })
+
+      if (child.length === 0) {
+        return res.status(404).json({ message: 'That child was not found' })
+      }
+
+      await db.update(req.params.id, req.body)
+      return res.status(200).json({ message: 'Child Updated' })
     } catch (error) {
       next(error)
     }

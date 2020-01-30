@@ -95,6 +95,18 @@ describe('child routes', () => {
     expect(res.body[0]).toBe(6)
   })
 
+  test('should update a child', async () => {
+    const updated = { name: 'Bobina', monster_id: '1', parent_id: '1' }
+
+    const res = await supertest(server)
+      .put('/api/child/1')
+      .send(updated)
+
+    expect(res.status).toBe(200)
+    expect(res.type).toBe('application/json')
+    expect(res.body.message).toContain('Updated')
+  })
+
   test('should delete a child', async () => {
     const res = await supertest(server).delete('/api/child/1')
 
