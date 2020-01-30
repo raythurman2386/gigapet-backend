@@ -1,39 +1,39 @@
 exports.up = async function(knex) {
-  await knex.schema.createTable("parents", tbl => {
-    tbl.increments("id");
-    tbl.string("parent_name", 128).notNullable();
+  await knex.schema.createTable('parents', tbl => {
+    tbl.increments('id')
+    tbl.string('parent_name', 128).notNullable()
     tbl
-      .string("username", 128)
+      .string('username', 128)
       .unique()
-      .notNullable();
-    tbl.string("password", 128).notNullable();
+      .notNullable()
+    tbl.string('password', 128).notNullable()
     tbl
-      .string("email", 128)
+      .string('email', 128)
       .unique()
-      .notNullable();
-  });
-  await knex.schema.createTable("child", tbl => {
-    tbl.increments("id");
-    tbl.string("name", 128).notNullable();
-    tbl.integer("monster_id").notNullable();
+      .notNullable()
+  })
+  await knex.schema.createTable('child', tbl => {
+    tbl.increments('id')
+    tbl.string('name', 128).notNullable()
+    tbl.integer('monster_id').notNullable()
     tbl
-      .integer("parent_id")
+      .integer('parent_id')
       .unsigned()
-      .references("id")
-      .inTable("parents")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
+      .references('id')
+      .inTable('parents')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE')
     tbl
-      .integer("co_parent_id")
+      .integer('co_parent_id')
       .unsigned()
-      .references("id")
-      .inTable("parents")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
-  });
-};
+      .references('id')
+      .inTable('parents')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE')
+  })
+}
 
 exports.down = async function(knex) {
-  await knex.schema.dropTableIfExists("child");
-  await knex.schema.dropTableIfExists("parents");
-};
+  await knex.schema.dropTableIfExists('child')
+  await knex.schema.dropTableIfExists('parents')
+}
