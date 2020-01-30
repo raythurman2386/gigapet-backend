@@ -19,6 +19,7 @@ describe('test routes', () => {
 describe('register route', () => {
   test('register', async () => {
     let newUser = {
+      parent_name: 'testroute',
       username: 'testroute',
       password: 'testpass',
       email: 'test@pass.com'
@@ -28,14 +29,38 @@ describe('register route', () => {
       .post('/api/auth/register')
       .send(newUser)
 
-    // expect(res.status).toBe(201);
-    // expect(res.type).toBe('application/json');
-    console.log(res)
+    expect(res.status).toBe(201)
+    expect(res.type).toBe('application/json')
+    expect(res.body.id).toBeDefined()
+    // console.log(res.body)
   })
 
   test('register fail', async () => {
     const res = await supertest(server).post('/api/auth/register')
 
     expect(res.status).toBe(500)
+  })
+})
+
+describe('login routes', () => {
+  test('login', async () => {
+    let newUser = {
+      parent_name: 'testroute',
+      username: 'testroute',
+      password: 'testpass',
+      email: 'test@pass.com'
+    }
+
+    await supertest(server)
+      .post('/api/auth/register')
+      .send(newUser)
+
+    const res = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'testroute', password: 'testpass' })
+
+    expect(res.status).toBe(200)
+    expect(res.type).toBe('application/json')
+    expect(res.body.message).toContain('Welcome')
   })
 })
