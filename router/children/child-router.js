@@ -5,6 +5,7 @@ const db = require('../../models/Child-models')
 childRouter
   .get('/', async (req, res, next) => {
     try {
+      // TODO: Fix to return only the parents kids
       const children = await db.find()
       return res.status(200).json(children)
     } catch (error) {
@@ -35,6 +36,7 @@ childRouter
   // update
   .put('/:id', async (req, res, next) => {
     try {
+      // TODO:
     } catch (error) {
       next(error)
     }
