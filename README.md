@@ -8,6 +8,16 @@ Gigapet API for PTCT Build Week, Jan 2020 deployed at `https://gigapet-backend.h
 
 # <a name='auth'></a> Auth
 
+Seed Users
+{
+username: test1,
+password: test
+}
+{
+username: test2,
+password: test
+}
+
 ## <a name='logs-in-a-registered-parent'></a> Logs in a registered parent
 
 [Back to top](#top)

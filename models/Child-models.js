@@ -1,9 +1,5 @@
 const db = require('../data/db-config')
-
-// find
-function find() {
-  return db('child')
-}
+const foods = require('./Food-models')
 
 // findById
 function findBy(filter) {
@@ -12,11 +8,13 @@ function findBy(filter) {
     .returning('*')
 }
 
-// findByParent
-function findByParent(id) {
-  return db('child')
-    .where({ parent_id: id })
-    .returning('*')
+async function findById(id) {
+  const [childFood] = await foods.findByChild(id)
+  const child = await findBy({ id }).first()
+  return {
+    child,
+    childFood
+  }
 }
 
 function addChild(child) {
@@ -41,9 +39,8 @@ function remove(id) {
 }
 
 module.exports = {
-  find,
   findBy,
-  findByParent,
+  findById,
   addChild,
   update,
   remove

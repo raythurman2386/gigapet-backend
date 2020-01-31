@@ -6,5 +6,5 @@ const restricted = require('../middleware/restricted')
 module.exports = server => {
   server.use('/api/auth', authRouter)
   server.use('/api/child', restricted(), childRouter)
-  // server.use('/api/foods', foodRouter)
+  server.use('/api/foods', foodRouter)
 }

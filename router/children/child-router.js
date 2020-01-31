@@ -6,7 +6,6 @@ childRouter
   .get('/', async (req, res, next) => {
     // this returns only the logged in parents children
     try {
-      // console.log(req.userId)
       const children = await db.findBy({ parent_id: req.userId })
       return res.status(200).json(children)
     } catch (error) {
@@ -17,7 +16,7 @@ childRouter
   // getById
   .get('/:id', async (req, res, next) => {
     try {
-      const [child] = await db.findBy({ id: req.params.id })
+      const child = await db.findById(req.params.id)
       return res.status(200).json(child)
     } catch (error) {
       next(error)
