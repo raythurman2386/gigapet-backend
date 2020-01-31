@@ -1,10 +1,5 @@
 const db = require('../data/db-config')
 
-// find
-function find() {
-  return db('foods')
-}
-
 // findById
 function findBy(filter) {
   return db('foods')
@@ -12,7 +7,7 @@ function findBy(filter) {
     .returning('*')
 }
 
-// findByParent
+// findByChild
 function findByChild(id) {
   return db('foods')
     .where({ child_id: id })
@@ -35,7 +30,6 @@ function remove(id) {
 }
 
 module.exports = {
-  find,
   findBy,
   findByChild,
   update,
