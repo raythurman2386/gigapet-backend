@@ -27,6 +27,7 @@ authRouter
         const token = generateToken(user)
         return res.status(200).json({
           message: `Welcome ${user.username}`,
+          parent_name: user.parent_name,
           token
         })
       } else {
