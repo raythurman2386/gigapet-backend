@@ -4,9 +4,10 @@ const db = require('../../models/Child-models')
 
 childRouter
   .get('/', async (req, res, next) => {
+    // this returns only the logged in parents children
     try {
-      // TODO: Fix to return only the parents kids
-      const children = await db.find()
+      // console.log(req.userId)
+      const children = await db.findBy({ parent_id: req.userId })
       return res.status(200).json(children)
     } catch (error) {
       next(error)
@@ -26,7 +27,7 @@ childRouter
   // addChild
   .post('/', async (req, res, next) => {
     try {
-      const newChild = await db.addChild(req.body)
+      const newChild = await db.addChild({ ...req.body, parent_id: req.userId })
       return res.status(201).json(newChild)
     } catch (error) {
       next(error)
