@@ -1,5 +1,5 @@
 const db = require('../data/db-config')
-const foods = require('./Food-models')
+const { Food, Monster } = require('./Model')
 
 // findById
 function findBy(filter) {
@@ -9,11 +9,13 @@ function findBy(filter) {
 }
 
 async function findById(id) {
-  const child_food = await foods.findByChild(id)
+  const child_food = await Food.findBy({ child_id: id })
   const child = await findBy({ id }).first()
+  const monster = await Monster.findBy({ id: child.monster_id })
   return {
     child,
-    child_food
+    child_food,
+    monster
   }
 }
 
