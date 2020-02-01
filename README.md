@@ -315,6 +315,10 @@ returns number of children deleted
 
 [Back to top](#top)
 
+### Get food by id
+
+    GET /api/foods/:id
+
 ### Add a food
 
     POST /api/foods
