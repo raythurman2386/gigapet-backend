@@ -5,7 +5,7 @@ foodRouter
   // addFood
   .post('/', async (req, res, next) => {
     try {
-      const newFood = await Food.add({ ...req.body })
+      const newFood = await Food.add(req.body)
       return res.status(201).json(newFood)
     } catch (error) {
       next(error)

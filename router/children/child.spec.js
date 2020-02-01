@@ -13,7 +13,7 @@ describe('child routes', () => {
   test('should get children', async () => {
     const res = await supertest(server)
       .get('/api/child')
-      .set('authorization', token)
+      .set('Authorization', token)
 
     console.log(res)
     // expect(res.status).toBe(200)
