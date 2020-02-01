@@ -28,7 +28,12 @@ async function add(user) {
 }
 
 // update
-function update(id, user) {}
+function update(id, user) {
+  return db('parents')
+    .where({ id })
+    .update(user)
+    .returning('*')
+}
 
 // remove
 async function remove(id) {
@@ -40,6 +45,7 @@ async function remove(id) {
 module.exports = {
   find,
   findBy,
+  findById,
   add,
   update,
   remove
