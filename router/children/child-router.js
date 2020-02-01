@@ -1,6 +1,5 @@
 const childRouter = require('express').Router()
 const db = require('../../models/Child-models')
-// get -- this will get all of the parents children
 
 childRouter
   .get('/', async (req, res, next) => {
