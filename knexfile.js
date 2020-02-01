@@ -1,14 +1,14 @@
 require('dotenv').config()
 const pg = require('pg')
 
-pg.defaults.ssl = false
+pg.defaults.ssl = true
 
-const localPg = {
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS
-}
+// const localPg = {
+//   host: process.env.DB_HOST,
+//   database: process.env.DB_NAME,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASS
+// }
 
 const sqlite = {
   client: 'sqlite3',
@@ -43,7 +43,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: localPg || process.env.DATABASE_URL,
+    connection: process.env.DATABASE_URL,
     useNullAsDefault: true,
     migrations: {
       directory: './data/migrations'
