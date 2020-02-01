@@ -10,9 +10,12 @@ authRouter
       const hashPw = await bcrypt.hash(user.password, 12)
       user.password = hashPw
 
-      const [id] = await Parents.add(user)
-      return res.status(201).json(id)
+      await Parents.add(user)
+      return res
+        .status(201)
+        .json({ message: 'You have been successfully registered' })
     } catch (error) {
+      console.log(error)
       next(error)
     }
   })
