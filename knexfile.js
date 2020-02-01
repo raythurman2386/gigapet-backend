@@ -8,7 +8,7 @@ const localPg = {
   password: process.env.DB_PASS
 }
 
-pg.defaults.ssl = false
+pg.defaults.ssl = true
 
 const sqlite = {
   client: 'sqlite3',
