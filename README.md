@@ -22,21 +22,18 @@ password: test
 
 [Back to top](#top)
 
-<p>Log a parent in, receive token on successful login</p>
+### <p>Log a parent in, receive token on successful login</p>
 
     POST /api/auth/login
 
-### Parameters
+### Requires
 
 | Name     | Type   | Description                  |
 | :------- | :----- | :--------------------------- |
 | username | String | <p>The Parent's username</p> |
 | password | String | <p>The Parent's password</p> |
 
-### Param Examples
-
-(json)
-Sample-Request:
+### Sample-Request:
 
 ```
 {
@@ -94,11 +91,11 @@ Error-Response:
 
 [Back to top](#top)
 
-<p>Registers a New Parent to the Database</p>
+### <p>Registers a New Parent to the Database</p>
 
     POST /api/auth/register
 
-### Parameter Parameters
+### Schema
 
 | Name        | Type   | Description                  |
 | :---------- | :----- | :--------------------------- |
@@ -107,10 +104,7 @@ Error-Response:
 | password    | String | <p>The parent's Password</p> |
 | email       | String | <p>The parent's Email</p>    |
 
-### Param Examples
-
-(json)
-Sample-Request:
+### Sample-Request:
 
 ```
 {
@@ -164,3 +158,150 @@ Error-Response:
     "error": "Email is already taken"
 }
 ```
+
+## <a name='Parent Router'></a> Routes for Parents
+
+[Back to top](#top)
+
+### <p>Gets a parent by id</p>
+
+    GET /api/parent/:id
+
+### Request Returns:
+
+```
+{
+  "parent_name": "test1",
+  "username": "test1",
+  "email": "test1@test.com"
+}
+```
+
+### <p>Update parent</p>
+
+    PUT /api/parent/:id
+
+### Sample-Request:
+
+```
+{
+    "parent_name": "testupdate",
+    "username": "testupdate",
+    "email": "test1@test.com"
+}
+```
+
+## <a name='Child Router'></a> Routes for Child
+
+[Back to top](#top)
+
+### <p>Gets a children that belongs to logged in parent</p>
+
+    GET /api/child
+
+### Example data
+
+```
+[
+  {
+    "id": 1,
+    "name": "Bob",
+    "monster_id": 1,
+    "parent_id": 1,
+    "co_parent_id": null
+  },
+  {
+    "id": 2,
+    "name": "Larry",
+    "monster_id": 1,
+    "parent_id": 1,
+    "co_parent_id": null
+  }
+]
+```
+
+### <p>Gets a child by id</p>
+
+    GET /api/child/:id
+
+### Request Returns:
+
+```
+{
+  "child": {
+    "id": 1,
+    "name": "Bob",
+    "monster_id": 1,
+    "parent_id": 1,
+    "co_parent_id": null
+  },
+  "child_food": [
+    {
+      "id": 1,
+      "name": "food",
+      "created_at": "2020-02-01 16:48:49",
+      "updated_at": "2020-02-01 16:48:49",
+      "child_id": 1,
+      "type": "fruits",
+      "servings": 2
+    },
+    {
+      "id": 2,
+      "name": "food",
+      "created_at": "2020-02-01 16:48:49",
+      "updated_at": "2020-02-01 16:48:49",
+      "child_id": 1,
+      "type": "veggies",
+      "servings": 3
+    }
+  ],
+  "monster": [
+    {
+      "id": 1,
+      "name": "monster-orange"
+    }
+  ]
+}
+```
+
+### <p>Adds a child</p>
+
+    POST /api/child
+
+required data
+
+```
+{
+	"name": "Bobby",
+    "monster_id": 1
+}
+```
+
+Returns the ID of the new child
+
+### <p>Update a child</p>
+
+    PUT /api/child/:id
+
+required data
+
+```
+{
+	"name": "Bobbina",
+    "monster_id": 1
+}
+```
+
+Returns:
+
+```
+{
+    message: "Child Updated"
+}
+```
+
+### <p>Delete a child</p>
+
+    DELETE /api/child/:id
+
+returns number of children deleted

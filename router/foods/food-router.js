@@ -1,18 +1,12 @@
 const foodRouter = require('express').Router()
-const db = require('../../models/Food-models')
+const { Food } = require('../../models/Model')
 
 foodRouter
-  // Gets all of a childs food
-  .get('/', async (req, res, next) => {
-    try {
-    } catch (error) {
-      next(error)
-    }
-  })
-
   // addFood
   .post('/', async (req, res, next) => {
     try {
+      const newFood = await Food.add({ ...req.body })
+      return res.status(201).json(newFood)
     } catch (error) {
       next(error)
     }
@@ -21,6 +15,8 @@ foodRouter
   // update
   .put('/:id', async (req, res, next) => {
     try {
+      await Food.update(req.params.id, req.body)
+      return res.status(201).json({ message: 'Food Updated' })
     } catch (error) {
       next(error)
     }
@@ -29,6 +25,8 @@ foodRouter
   // delete
   .delete('/:id', async (req, res, next) => {
     try {
+      await Food.remove(req.params.id)
+      return res.status(200).json({ message: 'Food Deleted' })
     } catch (error) {
       next(error)
     }

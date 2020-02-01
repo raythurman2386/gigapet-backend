@@ -8,5 +8,5 @@ module.exports = server => {
   server.use('/api/auth', authRouter)
   server.use('/api/parent', restricted(), parentRouter)
   server.use('/api/child', restricted(), childRouter)
-  server.use('/api/foods', foodRouter)
+  server.use('/api/foods', restricted(), foodRouter)
 }
