@@ -1,5 +1,9 @@
 const db = require('../data/db-config')
 
+function add(food) {
+  return db('foods').insert(food)
+}
+
 // findById
 function findBy(filter) {
   return db('foods')
@@ -30,6 +34,7 @@ function remove(id) {
 }
 
 module.exports = {
+  add,
   findBy,
   findByChild,
   update,
