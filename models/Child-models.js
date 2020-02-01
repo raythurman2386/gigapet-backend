@@ -9,11 +9,11 @@ function findBy(filter) {
 }
 
 async function findById(id) {
-  const childFood = await foods.findByChild(id)
+  const child_food = await foods.findByChild(id)
   const child = await findBy({ id }).first()
   return {
     child,
-    childFood
+    child_food
   }
 }
 
