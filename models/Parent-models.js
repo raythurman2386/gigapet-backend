@@ -14,9 +14,10 @@ function findBy(filter) {
 
 // findById
 function findById(id) {
-  return db('parents')
-    .where({ id })
-    .select('id', 'username', 'email')
+  return db('parents as P')
+    .join('child as C', 'C.parent_id', 'P.id')
+    .where({ 'P.id': id })
+    .select('P.id', 'P.username', 'P.email', 'C.id as child_id', 'C.name')
 }
 
 // add
@@ -36,10 +37,8 @@ function update(id, user) {
 }
 
 // remove
-async function remove(id) {
-  let user = await findBy({ id })
-  await findBy({ id }).del()
-  return user
+function remove(id) {
+  return findBy({ id }).del()
 }
 
 module.exports = {
