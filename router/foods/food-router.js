@@ -3,6 +3,15 @@ const { Food } = require('../../models/Model')
 
 foodRouter
   // addFood
+  .get('/:id', async (req, res, next) => {
+    try {
+      const food = await Food.findBy({ id: req.params.id })
+      return res.status(200).json(food)
+    } catch (error) {
+      next(error)
+    }
+  })
+
   .post('/', async (req, res, next) => {
     try {
       const newFood = await Food.add(req.body)
