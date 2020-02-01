@@ -99,7 +99,7 @@ Error-Response:
 
 | Name        | Type   | Description                  |
 | :---------- | :----- | :--------------------------- |
-| Parent name | String | <p>The Parent's Name         |
+| parent_name | String | <p>The Parent's Name         |
 | username    | String | <p>The parent's Username</p> |
 | password    | String | <p>The parent's Password</p> |
 | email       | String | <p>The parent's Email</p>    |
