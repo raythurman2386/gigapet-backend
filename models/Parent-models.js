@@ -20,11 +20,10 @@ function findById(id) {
 }
 
 // add
-async function add(user) {
-  const [id] = await db('parents')
+function add(user) {
+  return db('parents')
     .insert(user)
     .returning('*')
-  return findById(id)
 }
 
 // update
