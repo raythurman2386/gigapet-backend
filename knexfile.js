@@ -8,7 +8,11 @@ const localPg = {
   password: process.env.DB_PASS
 }
 
-pg.defaults.ssl = true
+if (!process.env.DATABASE_URL) {
+  pg.defaults.ssl = false
+} else {
+  pg.defaults.ssl = true
+}
 
 const sqlite = {
   client: 'sqlite3',
@@ -43,7 +47,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: process.env.DATABASE_URL || localPg,
     useNullAsDefault: true,
     migrations: {
       directory: './data/migrations'
