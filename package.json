@@ -11,8 +11,11 @@
     "rollback": "cross-env NODE_ENV=development knex migrate:rollback",
     "migrate:test": "cross-env NODE_ENV=test knex migrate:latest",
     "rollback:test": "cross-env NODE_ENV=test knex migrate:rollback",
+    "migrate:prod": "cross-env NODE_ENV=production knex migrate:latest",
+    "rollback:prod": "cross-env NODE_ENV=production knex migrate:rollback",
     "seed": "cross-env NODE_ENV=development knex seed:run",
-    "seed:test": "cross-env NODE_ENV=test knex seed:run"
+    "seed:test": "cross-env NODE_ENV=test knex seed:run",
+    "seed:prod": "cross-env NODE_ENV=production knex seed:run"
   },
   "keywords": [],
   "author": "Raymond Thurman",
