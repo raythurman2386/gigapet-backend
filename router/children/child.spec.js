@@ -5,17 +5,17 @@ const db = require('../../data/db-config')
 
 let token = generateToken({ username: 'test1', password: 'test' })
 
-beforeEach(async () => {
-  await db.seed.run()
-})
+// beforeEach(async () => {
+//   await db.seed.run()
+// })
 
 describe('child routes', () => {
   test('should get children', async () => {
     const res = await supertest(server)
       .get('/api/child')
-      .set('Authorization', token)
+      .set('authorization', token)
 
-    console.log(res)
+    console.log(res.status)
     // expect(res.status).toBe(200)
     // expect(res.type).toBe('application/json')
     // expect(res.body.length).toBeGreaterThan(0)
