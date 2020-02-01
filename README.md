@@ -4,9 +4,14 @@
 
 Gigapet API for PTCT Build Week, Jan 2020 deployed at `https://gigapet-backend.herokuapp.com/`
 
-- [Auth](#auth) - [Logs in a registered parent](#logs-in-a-registered-parent) - [Registers a New Parent](#registers-a-new-user)
+- [Auth](#auth)
+- [Logs in a registered parent](#logs-in-a-registered-parent)
+- [Registers a New Parent](#registers-a-new-user)
+- [Parent Router](#parent-router)
+- [Child Router](#child-router)
+- [Food Router](#food-router)
 
-# <a name='auth'></a> Auth
+## <a name='auth'></a> Auth
 
 Seed Users
 {
@@ -159,7 +164,7 @@ Error-Response:
 }
 ```
 
-## <a name='Parent Router'></a> Routes for Parents
+## <a name='parent-router'></a> Routes for Parents
 
 [Back to top](#top)
 
@@ -191,7 +196,7 @@ Error-Response:
 }
 ```
 
-## <a name='Child Router'></a> Routes for Child
+## <a name='child-router'></a> Routes for Child
 
 [Back to top](#top)
 
@@ -305,3 +310,63 @@ Returns:
     DELETE /api/child/:id
 
 returns number of children deleted
+
+## <a name='food-router'></a> Routes for Food
+
+[Back to top](#top)
+
+### Add a food
+
+    POST /api/foods
+
+required fields
+
+```
+{
+		"name": "apple",
+		"child_id": 1,
+		"type": "fruit",
+		"servings": 2
+}
+```
+
+Must include `child_id` in `req.body`
+
+returns the `id` of the food created
+
+### Update a food
+
+    PUT /api/foods/:id
+
+required fields
+
+```
+{
+		"name": "apple",
+		"child_id": 1,
+		"type": "fruit",
+		"servings": 2
+}
+```
+
+Must include `child_id` in `req.body`
+
+returns:
+
+```
+{
+  "message": "Food Updated"
+}
+```
+
+### Delete a food
+
+    DELETE /api/foods/:id
+
+returns:
+
+```
+{
+  "message": "Food Deleted"
+}
+```
