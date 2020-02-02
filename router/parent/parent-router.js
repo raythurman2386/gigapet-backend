@@ -1,6 +1,6 @@
 const parentRouter = require('express').Router()
 const db = require('../../models/Parent-models')
-const { validateParentId } = require('../../middleware/validate')
+const { validateParentId } = require('../../middleware/validateParent')
 
 parentRouter
   // .get('/', async (req, res, next) => {
