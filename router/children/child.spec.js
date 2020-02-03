@@ -16,7 +16,6 @@ describe('child routes', () => {
       .get('/api/child')
       .set('authorization', login.body.token)
 
-    // console.log(token)
     expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
   })
@@ -33,7 +32,6 @@ describe('child routes', () => {
     expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
     expect(res.body.child.id).toBe(1)
-    // console.log(res.body)
   })
 
   test('should add child to db', async () => {
