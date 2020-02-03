@@ -70,11 +70,17 @@ describe('child routes', () => {
     expect(res.body.message).toContain('Updated')
   })
 
-  // test('should delete a child', async () => {
-  //   const res = await supertest(server).delete('/api/child/1')
+  test('should delete a child', async () => {
+    const login = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'test1', password: 'test' })
 
-  //   expect(res.status).toBe(200)
-  //   expect(res.type).toBe('application/json')
-  //   expect(res.body).toBe(1)
-  // })
+    const res = await supertest(server)
+      .delete('/api/child/1')
+      .set('authorization', login.body.token)
+
+    expect(res.status).toBe(200)
+    expect(res.type).toBe('application/json')
+    expect(res.body).toBe(1)
+  })
 })
