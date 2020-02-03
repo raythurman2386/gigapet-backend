@@ -1,9 +1,9 @@
-const server = require('./api/server');
+const server = require('./api/server')
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000
 
 server.use((req, res, next) => {
-  res.status(404).json({ message: 'Route not found'})
+  res.status(404).json({ message: 'Route not found' })
 })
 
 server.use((err, req, res, next) => {
