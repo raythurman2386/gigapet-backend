@@ -1,4 +1,4 @@
-const Parent = require('../models/Model')
+const { Parent } = require('../models/Model')
 /* check for all credentials for register
  * parent_name
  * username
