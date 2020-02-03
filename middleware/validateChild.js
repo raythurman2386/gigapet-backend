@@ -7,7 +7,7 @@ function validateChildId() {
       req.child = child
       next()
     } catch (error) {
-      return res.status(404).json({
+      return res.status(400).json({
         message: 'There is no child by that ID'
       })
     }
@@ -16,15 +16,9 @@ function validateChildId() {
 
 function validateChildInputs() {
   return async (req, res, next) => {
-    if (!req.body.name) {
-      return res.status(404).json({
-        message: 'Provide a name please'
-      })
-    }
-
-    if (!req.body.monster_id) {
-      return res.status(404).json({
-        message: 'Provide a monster id please'
+    if (!req.body.name || !req.body.monster_id) {
+      return res.status(400).json({
+        message: 'Provide a name and a monster id please'
       })
     }
 

@@ -25,7 +25,7 @@ function validateFoodInputs() {
       !req.body.type ||
       !req.body.servings
     ) {
-      return res.status(404).json(message)
+      return res.status(400).json(message)
     }
 
     next()

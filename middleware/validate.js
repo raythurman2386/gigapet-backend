@@ -17,7 +17,7 @@ function validateRegister() {
       !req.body.password ||
       !req.body.email
     ) {
-      return res.status(404).json({ message: 'Please Provide All Fields' })
+      return res.status(400).json({ message: 'Please Provide All Fields' })
     }
 
     next()
@@ -32,7 +32,7 @@ function validateLogin() {
   return (req, res, next) => {
     if (!req.body.username || !req.body.password) {
       return res
-        .status(404)
+        .status(400)
         .json({ message: 'Please supply a username and a password' })
     }
 
