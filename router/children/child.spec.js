@@ -31,17 +31,22 @@ describe('child routes', () => {
     // console.log(res.body)
   })
 
-  // test('should add child to db', async () => {
-  //   const newChild = { name: 'test', monster_id: '1', parent_id: '1' }
+  test('should add child to db', async () => {
+    const newChild = { name: 'test', monster_id: '1', parent_id: '1' }
 
-  //   const res = await supertest(server)
-  //     .post('/api/child')
-  //     .send(newChild)
+    const login = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'test1', password: 'test' })
 
-  //   expect(res.status).toBe(201)
-  //   expect(res.type).toBe('application/json')
-  //   expect(res.body[0]).toBe(6)
-  // })
+    const res = await supertest(server)
+      .post('/api/child')
+      .send(newChild)
+      .set('authorization', login.body.token)
+
+    expect(res.status).toBe(201)
+    expect(res.type).toBe('application/json')
+    expect(res.body[0]).toBe(6)
+  })
 
   // test('should update a child', async () => {
   //   const updated = { name: 'Bobina', monster_id: '1', parent_id: '1' }
