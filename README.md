@@ -169,6 +169,18 @@ Error-Response:
 
 [Back to top](#top)
 
+### Base Route returns logged in user
+
+    GET /api/parent/
+
+```
+{
+  "parent_name": "test1",
+  "username": "test1",
+  "email": "test1@test.com"
+}
+```
+
 ### <p>Gets a parent by id</p>
 
     GET /api/parent/:id
