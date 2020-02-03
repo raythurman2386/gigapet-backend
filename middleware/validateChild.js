@@ -1,5 +1,4 @@
 const db = require('../models/Child-models')
-const { Monster } = require('../models/Model')
 
 function validateChildId() {
   return async (req, res, next) => {
