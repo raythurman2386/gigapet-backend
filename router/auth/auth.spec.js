@@ -21,7 +21,7 @@ describe('register route', () => {
 
     expect(res.status).toBe(201)
     expect(res.type).toBe('application/json')
-    expect(res.body.parent_name).toMatch(/testroute/i)
+    expect(res.body.message).toContain('registered')
     // console.log(res.body)
   })
 })
