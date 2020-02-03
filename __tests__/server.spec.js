@@ -1,5 +1,5 @@
 const supertest = require('supertest')
-const server = require('./server')
+const server = require('../api/server')
 
 describe('test routes', () => {
   test('Welcome Route', async () => {

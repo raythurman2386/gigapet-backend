@@ -1,6 +1,6 @@
 const supertest = require('supertest')
-const server = require('../../api/server')
-const db = require('../../data/db-config')
+const server = require('../api/server')
+const db = require('../data/db-config')
 
 beforeEach(async () => {
   await db.seed.run()
