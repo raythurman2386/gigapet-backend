@@ -14,17 +14,22 @@ describe('child routes', () => {
     // console.log(token)
     expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
-    console.log(res.body)
   })
 
-  // test('should get child with id 1', async () => {
-  //   const res = await supertest(server).get('/api/child/1')
+  test('should get child with id 1', async () => {
+    const login = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'test1', password: 'test' })
 
-  //   expect(res.status).toBe(200)
-  //   expect(res.type).toBe('application/json')
-  //   expect(res.body.name).toMatch(/bob/i)
-  //   // console.log(res.body)
-  // })
+    const res = await supertest(server)
+      .get('/api/child/1')
+      .set('authorization', login.body.token)
+
+    expect(res.status).toBe(200)
+    expect(res.type).toBe('application/json')
+    expect(res.body.child.id).toBe(1)
+    // console.log(res.body)
+  })
 
   // test('should add child to db', async () => {
   //   const newChild = { name: 'test', monster_id: '1', parent_id: '1' }
