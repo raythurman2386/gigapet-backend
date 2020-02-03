@@ -1,19 +1,20 @@
 const supertest = require('supertest')
-const generateToken = require('../../token/generateToken')
 const server = require('../../api/server')
-
-let token = generateToken({ username: 'test1', password: 'test' })
 
 describe('child routes', () => {
   test('should get children', async () => {
+    const login = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'test1', password: 'test' })
+
     const res = await supertest(server)
       .get('/api/child')
-      .set('Headers.authorization', token)
+      .set('authorization', login.body.token)
 
-    console.log(res.status)
-    // expect(res.status).toBe(200)
-    // expect(res.type).toBe('application/json')
-    // expect(res.body.length).toBeGreaterThan(0)
+    // console.log(token)
+    expect(res.status).toBe(200)
+    expect(res.type).toBe('application/json')
+    console.log(res.body)
   })
 
   // test('should get child with id 1', async () => {
