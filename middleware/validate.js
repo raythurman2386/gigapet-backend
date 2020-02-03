@@ -30,12 +30,10 @@ function validateRegister() {
  */
 function validateLogin() {
   return (req, res, next) => {
-    if (!req.body.username) {
-      return res.status(404).json({ message: 'Please supply a username' })
-    }
-
-    if (!req.body.password) {
-      return res.status(404).json({ message: 'Please supply a password' })
+    if (!req.body.username || !req.body.password) {
+      return res
+        .status(404)
+        .json({ message: 'Please supply a username and a password' })
     }
 
     next()
