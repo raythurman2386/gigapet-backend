@@ -1,14 +1,14 @@
 const supertest = require('supertest')
 const generateToken = require('../../token/generateToken')
 const server = require('../../api/server')
-const db = require('../../data/db-config')
+
+let token = generateToken({ username: 'test1', password: 'test' })
 
 describe('child routes', () => {
   test('should get children', async () => {
-    let token = await generateToken({ username: 'test1', password: 'test' })
     const res = await supertest(server)
       .get('/api/child')
-      .set('Authorization', token)
+      .set('Headers.authorization', token)
 
     console.log(res.status)
     // expect(res.status).toBe(200)
