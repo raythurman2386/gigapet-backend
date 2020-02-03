@@ -51,7 +51,6 @@ describe('Parent Route Tests', () => {
 
     expect(res.status).toBe(201)
     expect(res.type).toBe('application/json')
-    // expect(res.body).toBe(1)
-    console.log(res.body)
+    expect(res.body.message).toContain('deleted')
   })
 })
