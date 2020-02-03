@@ -20,4 +20,38 @@ describe('Parent Route Tests', () => {
     expect(res.type).toBe('application/json')
     expect(res.body.id).toBe(1)
   })
+
+  test('should update a parent', async () => {
+    const login = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'test1', password: 'test' })
+
+    const res = await supertest(server)
+      .put('/api/parent/1', {
+        parent_name: 'update',
+        username: 'update',
+        email: 'update@test.com'
+      })
+      .set('authorization', login.body.token)
+
+    expect(res.status).toBe(200)
+    expect(res.type).toBe('application/json')
+    // expect(res.body.id).toBe(1)
+    console.log(res.body)
+  })
+
+  test('should delete a parent', async () => {
+    const login = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'test1', password: 'test' })
+
+    const res = await supertest(server)
+      .delete('/api/parent/1')
+      .set('authorization', login.body.token)
+
+    expect(res.status).toBe(201)
+    expect(res.type).toBe('application/json')
+    // expect(res.body).toBe(1)
+    console.log(res.body)
+  })
 })
