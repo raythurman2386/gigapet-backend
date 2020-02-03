@@ -1,4 +1,5 @@
 const db = require('../models/Child-models')
+const { Monster } = require('../models/Model')
 
 function validateChildId() {
   return async (req, res, next) => {
@@ -14,6 +15,25 @@ function validateChildId() {
   }
 }
 
+function validateChildInputs() {
+  return async (req, res, next) => {
+    if (!req.body.name) {
+      return res.status(404).json({
+        message: 'Provide a name please'
+      })
+    }
+
+    if (!req.body.monster_id) {
+      return res.status(404).json({
+        message: 'Provide a monster id please'
+      })
+    }
+
+    next()
+  }
+}
+
 module.exports = {
-  validateChildId
+  validateChildId,
+  validateChildInputs
 }
