@@ -1,18 +1,21 @@
 const foodRouter = require('express').Router()
 const { Food } = require('../../models/Model')
+const {
+  validateFoodId,
+  validateFoodInputs
+} = require('../../middleware/validateFood')
 
 foodRouter
   // addFood
-  .get('/:id', async (req, res, next) => {
+  .get('/:id', validateFoodId(), (req, res, next) => {
     try {
-      const food = await Food.findBy({ id: req.params.id })
-      return res.status(200).json(food)
+      return res.status(200).json(req.food)
     } catch (error) {
       next(error)
     }
   })
 
-  .post('/', async (req, res, next) => {
+  .post('/', validateFoodInputs(), async (req, res, next) => {
     try {
       const newFood = await Food.add(req.body)
       return res.status(201).json(newFood)
@@ -22,7 +25,7 @@ foodRouter
   })
 
   // update
-  .put('/:id', async (req, res, next) => {
+  .put('/:id', validateFoodId(), async (req, res, next) => {
     try {
       await Food.update(req.params.id, req.body)
       return res.status(201).json({ message: 'Food Updated' })
@@ -32,7 +35,7 @@ foodRouter
   })
 
   // delete
-  .delete('/:id', async (req, res, next) => {
+  .delete('/:id', validateFoodId(), async (req, res, next) => {
     try {
       await Food.remove(req.params.id)
       return res.status(200).json({ message: 'Food Deleted' })
