@@ -3,10 +3,10 @@ const db = require('../../models/Parent-models')
 const { validateParentId } = require('../../middleware/validateParent')
 
 parentRouter
-  // .get('/', async (req, res, next) => {
-  //   const parents = await db.find()
-  //   return res.status(200).json(parents)
-  // })
+  .get('/', async (req, res, next) => {
+    const [parent] = await db.findById(req.userId)
+    return res.status(200).json(parent)
+  })
 
   .get('/:id', validateParentId(), (req, res, next) => {
     try {
