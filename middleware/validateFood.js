@@ -15,6 +15,31 @@ function validateFoodId() {
   }
 }
 
+function validateFoodInputs() {
+  return (req, res, next) => {
+    const message = { message: 'Please send all required fields' }
+
+    if (!req.body.name) {
+      return res.status(404).json(message)
+    }
+
+    if (!req.body.child_id) {
+      return res.status(404).json(message)
+    }
+
+    if (!req.body.type) {
+      return res.status(404).json(message)
+    }
+
+    if (!req.body.servings) {
+      return res.status(404).json(message)
+    }
+
+    next()
+  }
+}
+
 module.exports = {
-  validateFoodId
+  validateFoodId,
+  validateFoodInputs
 }
