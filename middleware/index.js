@@ -20,8 +20,8 @@ const limiter = rateLimit({
 const slow = slowDown({
   windowMs: 15 * 60 * 1000,
   delayAfter: 100,
-  delayMs: 100,
-  maxDelayMs: 2000
+  delayMs: 1000,
+  maxDelayMs: 3000
 })
 
 module.exports = server => {
