@@ -50,6 +50,19 @@ authRouter
     }
   })
 
-  .post('/reset-password', (req, res, next) => {})
+  .post('/reset-password', async (req, res, next) => {
+    try {
+      const { email, new_password } = req.body
+      let user = await Parents.findBy({ email: email })
+      const hashPw = await bcrypt.hash(new_password, 12)
+      let updatedParent = {
+        ...user,
+        password: hashPw
+      }
+      await Parents.update(updatedParent)
+    } catch (error) {
+      next(error)
+    }
+  })
 
 module.exports = authRouter
