@@ -117,4 +117,25 @@ describe('login routes', () => {
     expect(res.type).toBe('application/json')
     expect(res.body.message).toMatch(/please supply a username and a password/i)
   })
+
+  it('login should fail because of pw', async () => {
+    let newUser = {
+      parent_name: 'testroute',
+      username: 'testroute',
+      password: 'testpass',
+      email: 'test@pass.com'
+    }
+
+    await supertest(server)
+      .post('/api/auth/register')
+      .send(newUser)
+
+    const res = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'testroute', password: 'testpass123' })
+
+    expect(res.status).toBe(401)
+    expect(res.type).toBe('application/json')
+    expect(res.body.message).toMatch(/invalid credentials/i)
+  })
 })
