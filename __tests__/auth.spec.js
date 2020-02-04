@@ -39,6 +39,40 @@ describe('register route', () => {
     expect(res.type).toBe('application/json')
     expect(res.body.message).toMatch(/please provide all fields/i)
   })
+
+  it('should test register fail by email', async () => {
+    let newUser = {
+      parent_name: 'testroute',
+      username: 'testroute',
+      password: 'testpass',
+      email: 'test1@test.com'
+    }
+
+    const res = await supertest(server)
+      .post('/api/auth/register')
+      .send(newUser)
+
+    expect(res.status).toBe(400)
+    expect(res.type).toBe('application/json')
+    expect(res.body.message).toMatch(/a user with that email exists/i)
+  })
+
+  it('should test register fail by username', async () => {
+    let newUser = {
+      parent_name: 'testroute',
+      username: 'test1',
+      password: 'testpass',
+      email: 'something@test.com'
+    }
+
+    const res = await supertest(server)
+      .post('/api/auth/register')
+      .send(newUser)
+
+    expect(res.status).toBe(400)
+    expect(res.type).toBe('application/json')
+    expect(res.body.message).toMatch(/a user with that username exists/i)
+  })
 })
 
 describe('login routes', () => {
