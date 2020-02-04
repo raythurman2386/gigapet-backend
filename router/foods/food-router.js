@@ -28,7 +28,7 @@ foodRouter
   .put('/:id', validateFoodId(), async (req, res, next) => {
     try {
       await Food.update(req.params.id, req.body)
-      return res.status(201).json({ message: 'Food Updated' })
+      return res.status(200).json({ message: 'Food Updated' })
     } catch (error) {
       next(error)
     }

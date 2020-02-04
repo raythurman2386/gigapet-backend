@@ -1,8 +1,8 @@
 const supertest = require('supertest')
-const server = require('./server')
+const server = require('../api/server')
 
 describe('test routes', () => {
-  test('Welcome Route', async () => {
+  it('Welcome Route', async () => {
     const res = await supertest(server).get('/')
 
     expect(res.status).toBe(200)

@@ -17,7 +17,7 @@ childRouter
   })
 
   // getById
-  .get('/:id', validateChildId(), async (req, res, next) => {
+  .get('/:id', validateChildId(), (req, res, next) => {
     try {
       return res.status(200).json(req.child)
     } catch (error) {
@@ -49,7 +49,7 @@ childRouter
   .delete('/:id', validateChildId(), async (req, res, next) => {
     try {
       const response = await db.remove(req.params.id)
-      res.json(response)
+      return res.status(200).json(response)
     } catch (error) {
       next(error)
     }
