@@ -2,12 +2,12 @@ const supertest = require('supertest')
 const server = require('../api/server')
 const db = require('../data/db-config')
 
-// beforeEach(async () => {
-//   await db.seed.run()
-// })
+beforeEach(async () => {
+  await db.seed.run()
+})
 
 describe('register route', () => {
-  test('register', async () => {
+  it('register', async () => {
     let newUser = {
       parent_name: 'testroute',
       username: 'testroute',
@@ -24,7 +24,7 @@ describe('register route', () => {
     expect(res.body.message).toContain('registered')
   })
 
-  test('should test register fail', async () => {
+  it('should test register fail', async () => {
     let newUser = {
       parent_name: 'testroute',
       username: 'testroute',
@@ -42,7 +42,7 @@ describe('register route', () => {
 })
 
 describe('login routes', () => {
-  test('login', async () => {
+  it('login', async () => {
     let newUser = {
       parent_name: 'testroute',
       username: 'testroute',
@@ -63,7 +63,7 @@ describe('login routes', () => {
     expect(res.body.message).toContain('Welcome')
   })
 
-  test('should test a login fail', async () => {
+  it('should test a login fail', async () => {
     let newUser = {
       parent_name: 'testroute',
       username: 'testroute',
