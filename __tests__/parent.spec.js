@@ -2,12 +2,12 @@ const supertest = require('supertest')
 const server = require('../api/server')
 const db = require('../data/db-config')
 
-// beforeEach(async () => {
-//   await db.seed.run()
-// })
+beforeEach(async () => {
+  await db.seed.run()
+})
 
 describe('Parent Route Tests', () => {
-  test('should get parent by id', async () => {
+  it('should get parent by id', async () => {
     const login = await supertest(server)
       .post('/api/auth/login')
       .send({ username: 'test1', password: 'test' })
@@ -21,7 +21,7 @@ describe('Parent Route Tests', () => {
     expect(res.body.id).toBe(1)
   })
 
-  test('should not find a parent by id', async () => {
+  it('should not find a parent by id', async () => {
     const login = await supertest(server)
       .post('/api/auth/login')
       .send({ username: 'test1', password: 'test' })
@@ -32,17 +32,17 @@ describe('Parent Route Tests', () => {
 
     expect(res.status).toBe(404)
     expect(res.type).toBe('application/json')
-    // expect(res.body.message).toMatch(//i)
-    console.log(res.body)
+    expect(res.body.message).toMatch(/parent not found/i)
   })
 
-  test('should update a parent', async () => {
+  it('should update a parent', async () => {
     const login = await supertest(server)
       .post('/api/auth/login')
       .send({ username: 'test1', password: 'test' })
 
     const res = await supertest(server)
-      .put('/api/parent/1', {
+      .put('/api/parent/1')
+      .send({
         parent_name: 'update',
         username: 'update',
         email: 'update@test.com'
@@ -51,11 +51,29 @@ describe('Parent Route Tests', () => {
 
     expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
-    // expect(res.body.id).toBe(1)
-    console.log(res.body)
+    expect(res.body).toBe(1)
   })
 
-  test('should delete a parent', async () => {
+  it('should fail to update a parent', async () => {
+    const login = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'test1', password: 'test' })
+
+    const res = await supertest(server)
+      .put('/api/parent/111')
+      .send({
+        parent_name: 'update',
+        username: 'update',
+        email: 'update@test.com'
+      })
+      .set('authorization', login.body.token)
+
+    expect(res.status).toBe(404)
+    expect(res.type).toBe('application/json')
+    expect(res.body.message).toMatch(/parent not found/i)
+  })
+
+  it('should delete a parent', async () => {
     const login = await supertest(server)
       .post('/api/auth/login')
       .send({ username: 'test1', password: 'test' })
@@ -67,5 +85,19 @@ describe('Parent Route Tests', () => {
     expect(res.status).toBe(201)
     expect(res.type).toBe('application/json')
     expect(res.body.message).toContain('deleted')
+  })
+
+  it('should fail to delete a parent', async () => {
+    const login = await supertest(server)
+      .post('/api/auth/login')
+      .send({ username: 'test1', password: 'test' })
+
+    const res = await supertest(server)
+      .delete('/api/parent/111')
+      .set('authorization', login.body.token)
+
+    expect(res.status).toBe(404)
+    expect(res.type).toBe('application/json')
+    expect(res.body.message).toMatch(/parent not found/i)
   })
 })
