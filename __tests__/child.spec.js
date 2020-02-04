@@ -125,7 +125,7 @@ describe('child routes', () => {
       .delete('/api/child/1')
       .set('authorization', login.body.token)
 
-    expect(res.status).toBe(200)
+    expect(res.status).toBe(201)
     expect(res.type).toBe('application/json')
     expect(res.body).toBe(1)
   })

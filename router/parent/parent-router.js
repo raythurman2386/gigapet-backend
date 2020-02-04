@@ -28,7 +28,7 @@ parentRouter
   .delete('/:id', validateParentId(), async (req, res, next) => {
     try {
       await db.remove(req.params.id)
-      return res.status(201).json({ message: 'User deleted' })
+      return res.status(200).json({ message: 'User deleted' })
     } catch (error) {
       next(error)
     }

@@ -82,7 +82,7 @@ describe('Parent Route Tests', () => {
       .delete('/api/parent/1')
       .set('authorization', login.body.token)
 
-    expect(res.status).toBe(201)
+    expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
     expect(res.body.message).toContain('deleted')
   })
