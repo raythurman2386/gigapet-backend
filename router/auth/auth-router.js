@@ -50,7 +50,7 @@ authRouter
     }
   })
 
-  .post('/reset-password', async (req, res, next) => {
+  .post('/reset-password', accountLimiter, async (req, res, next) => {
     try {
       const { email, new_password } = req.body
       let user = await Parents.findBy({ email: email })
@@ -59,7 +59,8 @@ authRouter
         ...user,
         password: hashPw
       }
-      await Parents.update(updatedParent)
+      await Parents.update(user.id, updatedParent)
+      return res.status(200).json(updatedParent)
     } catch (error) {
       next(error)
     }
