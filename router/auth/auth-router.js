@@ -50,4 +50,6 @@ authRouter
     }
   })
 
+  .post('/reset-password', (req, res, next) => {})
+
 module.exports = authRouter
