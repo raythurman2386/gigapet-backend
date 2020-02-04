@@ -3,6 +3,7 @@ const helmet = require('helmet')
 const cors = require('cors')
 const morgan = require('morgan')
 const rateLimit = require('express-rate-limit')
+const slowDown = require('express-slow-down')
 
 const corsObj = cors({
   origin: '*',
@@ -16,10 +17,18 @@ const limiter = rateLimit({
   message: 'Too many requests, please try again later'
 })
 
+const slow = slowDown({
+  windowMs: 15 * 60 * 1000,
+  delayAfter: 100,
+  delayMs: 100,
+  maxDelayMs: 2000
+})
+
 module.exports = server => {
   server.use(helmet())
   server.use(morgan('short'))
   server.use(corsObj)
   server.use(express.json())
+  server.use(slow)
   server.use(limiter)
 }
