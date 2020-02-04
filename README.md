@@ -5,6 +5,12 @@ Project Canvas: https://docs.google.com/document/d/1KHufBfOT3z5OFoRIDsgyXXV4QDPv
 
 Gigapet API for PTCT Build Week, Jan 2020 deployed at `https://gigapet-backend.herokuapp.com/`
 
+## Rate Limits
+
+- 250 API calls per 15 min
+- 1000ms Slowdown when over 100 API Calls
+- 5 API calls to register and login routes per 15 minutes
+
 - [Auth](#auth)
 - [Logs in a registered parent](#logs-in-a-registered-parent)
 - [Registers a New Parent](#registers-a-new-user)
