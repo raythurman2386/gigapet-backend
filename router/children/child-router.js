@@ -17,7 +17,7 @@ childRouter
   })
 
   // getById
-  .get('/:id', validateChildId(), async (req, res, next) => {
+  .get('/:id', validateChildId(), (req, res, next) => {
     try {
       return res.status(200).json(req.child)
     } catch (error) {
