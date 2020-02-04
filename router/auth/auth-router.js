@@ -3,25 +3,31 @@ const bcrypt = require('bcryptjs')
 const generateToken = require('../../token/generateToken')
 const Parents = require('../../models/Parent-models')
 const { validateRegister, validateLogin } = require('../../middleware/validate')
+const accountLimiter = require('../../middleware/accountLimiter')
 
 authRouter
-  .post('/register', validateRegister(), async (req, res, next) => {
-    try {
-      let user = req.body
-      const hashPw = await bcrypt.hash(user.password, 12)
-      user.password = hashPw
+  .post(
+    '/register',
+    accountLimiter,
+    validateRegister(),
+    async (req, res, next) => {
+      try {
+        let user = req.body
+        const hashPw = await bcrypt.hash(user.password, 12)
+        user.password = hashPw
 
-      await Parents.add(user)
-      return res
-        .status(201)
-        .json({ message: 'You have been successfully registered' })
-    } catch (error) {
-      console.log(error)
-      next(error)
+        await Parents.add(user)
+        return res
+          .status(201)
+          .json({ message: 'You have been successfully registered' })
+      } catch (error) {
+        console.log(error)
+        next(error)
+      }
     }
-  })
+  )
 
-  .post('/login', validateLogin(), async (req, res, next) => {
+  .post('/login', accountLimiter, validateLogin(), async (req, res, next) => {
     try {
       const { username, password } = req.body
       const user = await Parents.findBy({ username })
