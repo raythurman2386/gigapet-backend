@@ -1,14 +1,13 @@
-require('dotenv').config()
 const authRouter = require('express').Router()
 const bcrypt = require('bcryptjs')
 const generateToken = require('../../token/generateToken')
 const Parents = require('../../models/Parent-models')
 const { validateRegister, validateLogin } = require('../../middleware/validate')
+const sendgrid = require('../../utils/sendgrid')
 const {
   accountLimiter,
   resetLimiter
 } = require('../../middleware/accountLimiter')
-const sgMail = require('@sendgrid/mail')
 
 authRouter
   .post(
@@ -55,23 +54,18 @@ authRouter
     }
   })
 
-  .post('/initiate-reset', accountLimiter, async (req, res, next) => {
-    try {
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-      const msg = {
-        to: req.body.email,
-        from: 'gigapethelp@gigapet.com',
-        subject: 'Reset Gigapet Password',
-        text: 'Click below to reset your password',
-        html:
-          '<p>Click below to reset your password</p><a href="https://gigapet-backend.herokuapp.com/api/auth/reset-password">Reset Password</a>'
+  .post(
+    '/initiate-reset',
+    accountLimiter,
+    sendgrid(),
+    async (req, res, next) => {
+      try {
+        return res.status(200).json({ message: 'Please check your email' })
+      } catch (error) {
+        next(error)
       }
-      sgMail.send(msg)
-      return res.status(200).json({ message: 'Please check your email' })
-    } catch (error) {
-      next(error)
     }
-  })
+  )
 
   .post('/reset-password', resetLimiter, async (req, res, next) => {
     try {
