@@ -1,9 +1,11 @@
+require('dotenv').config()
 const authRouter = require('express').Router()
 const bcrypt = require('bcryptjs')
 const generateToken = require('../../token/generateToken')
 const Parents = require('../../models/Parent-models')
 const { validateRegister, validateLogin } = require('../../middleware/validate')
 const accountLimiter = require('../../middleware/accountLimiter')
+const sgMail = require('@sendgrid/mail')
 
 authRouter
   .post(
@@ -45,6 +47,24 @@ authRouter
           message: 'Invalid Credentials'
         })
       }
+    } catch (error) {
+      next(error)
+    }
+  })
+
+  .post('/start-reset', accountLimiter, async (req, res, next) => {
+    try {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+      const msg = {
+        to: req.body.email,
+        from: 'gigapet@test.com',
+        subject: 'Reset Gigapet Password',
+        text: 'Click below to reset your password',
+        html:
+          '<a href="https://gigapet-backend.herokuapp.com/api/auth/reset-password">Reset Password</a>'
+      }
+      sgMail.send(msg)
+      return res.status(200).json({ message: 'Please check your email' })
     } catch (error) {
       next(error)
     }
