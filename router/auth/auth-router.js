@@ -54,18 +54,13 @@ authRouter
     }
   })
 
-  .post(
-    '/initiate-reset',
-    accountLimiter,
-    sendgrid(),
-    async (req, res, next) => {
-      try {
-        return res.status(200).json({ message: 'Please check your email' })
-      } catch (error) {
-        next(error)
-      }
+  .post('/initiate-reset', accountLimiter, sendgrid(), (req, res, next) => {
+    try {
+      return res.status(200).json({ message: 'Please check your email' })
+    } catch (error) {
+      next(error)
     }
-  )
+  })
 
   .post('/reset-password', resetLimiter, async (req, res, next) => {
     try {
