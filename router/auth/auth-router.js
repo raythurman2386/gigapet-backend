@@ -60,7 +60,7 @@ authRouter
         password: hashPw
       }
       await Parents.update(user.id, updatedParent)
-      return res.status(200).json(updatedParent)
+      return res.status(200).json({ message: 'Password successfully updated' })
     } catch (error) {
       next(error)
     }
