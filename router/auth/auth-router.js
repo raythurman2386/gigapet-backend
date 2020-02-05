@@ -4,7 +4,10 @@ const bcrypt = require('bcryptjs')
 const generateToken = require('../../token/generateToken')
 const Parents = require('../../models/Parent-models')
 const { validateRegister, validateLogin } = require('../../middleware/validate')
-const accountLimiter = require('../../middleware/accountLimiter')
+const {
+  accountLimiter,
+  resetLimiter
+} = require('../../middleware/accountLimiter')
 const sgMail = require('@sendgrid/mail')
 
 authRouter
@@ -70,7 +73,7 @@ authRouter
     }
   })
 
-  .post('/reset-password', accountLimiter, async (req, res, next) => {
+  .post('/reset-password', resetLimiter, async (req, res, next) => {
     try {
       const { email, new_password } = req.body
       let user = await Parents.findBy({ email: email })
