@@ -2,19 +2,31 @@ const supertest = require('supertest')
 const server = require('../api/server')
 const db = require('../data/db-config')
 
-beforeAll(async () => {
+let auth = {}
+
+beforeAll(async done => {
   await db.seed.run()
+  done()
+})
+
+beforeEach(async done => {
+  const login = await supertest(server)
+    .post('/api/auth/login')
+    .send({ username: 'test1', password: 'test' })
+
+  auth.token = login.body.token
+  done()
 })
 
 describe('food routes', () => {
   it('should get food by id', async () => {
-    const login = await supertest(server)
-      .post('/api/auth/login')
-      .send({ username: 'test1', password: 'test' })
+    // const login = await supertest(server)
+    //   .post('/api/auth/login')
+    //   .send({ username: 'test1', password: 'test' })
 
     const res = await supertest(server)
       .get('/api/foods/1')
-      .set('authorization', login.body.token)
+      .set('authorization', auth.token)
 
     expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
@@ -22,13 +34,13 @@ describe('food routes', () => {
   })
 
   it('should fail to get food by id', async () => {
-    const login = await supertest(server)
-      .post('/api/auth/login')
-      .send({ username: 'test1', password: 'test' })
+    // const login = await supertest(server)
+    //   .post('/api/auth/login')
+    //   .send({ username: 'test1', password: 'test' })
 
     const res = await supertest(server)
       .get('/api/foods/111')
-      .set('authorization', login.body.token)
+      .set('authorization', auth.token)
 
     expect(res.status).toBe(404)
     expect(res.type).toBe('application/json')
@@ -36,9 +48,9 @@ describe('food routes', () => {
   })
 
   it('should add a food', async () => {
-    const login = await supertest(server)
-      .post('/api/auth/login')
-      .send({ username: 'test1', password: 'test' })
+    // const login = await supertest(server)
+    //   .post('/api/auth/login')
+    //   .send({ username: 'test1', password: 'test' })
 
     const res = await supertest(server)
       .post('/api/foods')
@@ -48,7 +60,7 @@ describe('food routes', () => {
         type: 'fruit',
         servings: 5
       })
-      .set('authorization', login.body.token)
+      .set('authorization', auth.token)
 
     expect(res.status).toBe(201)
     expect(res.type).toBe('application/json')
@@ -56,9 +68,9 @@ describe('food routes', () => {
   })
 
   it('should fail to add a food', async () => {
-    const login = await supertest(server)
-      .post('/api/auth/login')
-      .send({ username: 'test1', password: 'test' })
+    // const login = await supertest(server)
+    //   .post('/api/auth/login')
+    //   .send({ username: 'test1', password: 'test' })
 
     const res = await supertest(server)
       .post('/api/foods')
@@ -67,7 +79,7 @@ describe('food routes', () => {
         child_id: 1,
         type: 'fruit'
       })
-      .set('authorization', login.body.token)
+      .set('authorization', auth.token)
 
     expect(res.status).toBe(400)
     expect(res.type).toBe('application/json')
@@ -75,9 +87,9 @@ describe('food routes', () => {
   })
 
   it('should update a food by id', async () => {
-    const login = await supertest(server)
-      .post('/api/auth/login')
-      .send({ username: 'test1', password: 'test' })
+    // const login = await supertest(server)
+    //   .post('/api/auth/login')
+    //   .send({ username: 'test1', password: 'test' })
 
     const res = await supertest(server)
       .put('/api/foods/1')
@@ -87,7 +99,7 @@ describe('food routes', () => {
         type: 'fruit',
         servings: 5
       })
-      .set('authorization', login.body.token)
+      .set('authorization', auth.token)
 
     expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
@@ -110,7 +122,7 @@ describe('food routes', () => {
         type: 'fruit',
         servings: 5
       })
-      .set('authorization', login.body.token)
+      .set('authorization', auth.token)
 
     expect(res.status).toBe(404)
     expect(res.type).toBe('application/json')
@@ -118,13 +130,13 @@ describe('food routes', () => {
   })
 
   it('should delete a food by id', async () => {
-    const login = await supertest(server)
-      .post('/api/auth/login')
-      .send({ username: 'test1', password: 'test' })
+    // const login = await supertest(server)
+    //   .post('/api/auth/login')
+    //   .send({ username: 'test1', password: 'test' })
 
     const res = await supertest(server)
       .delete('/api/foods/1')
-      .set('authorization', login.body.token)
+      .set('authorization', auth.token)
 
     expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
@@ -132,13 +144,13 @@ describe('food routes', () => {
   })
 
   it('should fail to delete a food by id', async () => {
-    const login = await supertest(server)
-      .post('/api/auth/login')
-      .send({ username: 'test1', password: 'test' })
+    // const login = await supertest(server)
+    //   .post('/api/auth/login')
+    //   .send({ username: 'test1', password: 'test' })
 
     const res = await supertest(server)
       .delete('/api/foods/111')
-      .set('authorization', login.body.token)
+      .set('authorization', auth.token)
 
     expect(res.status).toBe(404)
     expect(res.type).toBe('application/json')
