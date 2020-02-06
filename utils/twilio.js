@@ -16,7 +16,7 @@ function twilio() {
       .create({
         body: 'Hello from Gigapet',
         to: `+1${req.body.phone_number}`,
-        from: '+17748085108'
+        from: process.env.APP_NUMBER
       })
       .then(message => console.log(message.sid), next())
   }
