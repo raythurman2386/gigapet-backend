@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
@@ -29,6 +30,8 @@ module.exports = server => {
   server.use(morgan('short'))
   server.use(corsObj)
   server.use(express.json())
-  server.use(slow)
-  server.use(limiter)
+  if (process.env.NODE_ENV === 'production') {
+    server.use(slow)
+    server.use(limiter)
+  }
 }
