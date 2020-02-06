@@ -2,7 +2,9 @@ exports.up = async function(knex) {
   await knex.schema.createTable('foods', tbl => {
     tbl.increments('id')
     tbl.string('name').notNullable()
-    tbl.timestamp('created_at', { useTz: true })
+    tbl
+      .datetime('created_at', { useTz: true, precision: 6 })
+      .defaultTo(knex.fn.now())
     tbl
       .integer('child_id')
       .notNullable()
