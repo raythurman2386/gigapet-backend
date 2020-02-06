@@ -7,7 +7,7 @@ const accountLimiter = rateLimit({
 })
 
 const resetLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
+  windowMs: 24 * 60 * 60 * 1000,
   max: 3,
   message: 'You may only reset your password 3 times a day'
 })
