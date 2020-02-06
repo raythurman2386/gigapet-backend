@@ -28,7 +28,7 @@ childRouter
   // addChild
   .post('/', validateChildInputs(), async (req, res, next) => {
     try {
-      const newChild = await Child.addChild({
+      const newChild = await Child.add({
         ...req.body,
         parent_id: req.userId
       })
