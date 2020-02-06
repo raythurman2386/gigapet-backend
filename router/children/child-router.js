@@ -1,5 +1,5 @@
 const childRouter = require('express').Router()
-const db = require('../../models/Child-models')
+const { Child } = require('../../models/Model')
 const {
   validateChildId,
   validateChildInputs
@@ -9,7 +9,7 @@ childRouter
   .get('/', async (req, res, next) => {
     // this returns only the logged in parents children
     try {
-      const children = await db.findBy({ parent_id: req.userId })
+      const children = await Child.findBy({ parent_id: req.userId })
       return res.status(200).json(children)
     } catch (error) {
       next(error)
@@ -28,7 +28,10 @@ childRouter
   // addChild
   .post('/', validateChildInputs(), async (req, res, next) => {
     try {
-      const newChild = await db.addChild({ ...req.body, parent_id: req.userId })
+      const newChild = await Child.addChild({
+        ...req.body,
+        parent_id: req.userId
+      })
       return res.status(201).json(newChild)
     } catch (error) {
       next(error)
@@ -38,7 +41,7 @@ childRouter
   // update
   .put('/:id', validateChildId(), async (req, res, next) => {
     try {
-      await db.update(req.params.id, req.body)
+      await Child.update(req.params.id, req.body)
       return res.status(200).json({ message: 'Child Updated' })
     } catch (error) {
       next(error)
@@ -48,7 +51,7 @@ childRouter
   // delete
   .delete('/:id', validateChildId(), async (req, res, next) => {
     try {
-      const response = await db.remove(req.params.id)
+      const response = await Child.remove(req.params.id)
       return res.status(200).json(response)
     } catch (error) {
       next(error)

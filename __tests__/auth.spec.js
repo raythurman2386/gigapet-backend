@@ -2,8 +2,9 @@ const supertest = require('supertest')
 const server = require('../api/server')
 const db = require('../data/db-config')
 
-beforeEach(async () => {
+beforeAll(async done => {
   await db.seed.run()
+  done()
 })
 
 describe('register route', () => {
