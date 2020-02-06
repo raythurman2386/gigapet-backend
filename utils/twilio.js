@@ -8,6 +8,10 @@ const client = new tw(accountSid, authToken)
 
 function twilio() {
   return (req, res, next) => {
+    if (!req.body.phone_number) {
+      return next()
+    }
+
     client.messages
       .create({
         body: 'Hello from Gigapet',
