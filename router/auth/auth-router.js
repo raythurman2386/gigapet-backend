@@ -4,6 +4,7 @@ const generateToken = require('../../token/generateToken')
 const Parents = require('../../models/Parent-models')
 const { validateRegister, validateLogin } = require('../../middleware/validate')
 const sendgrid = require('../../utils/sendgrid')
+const twilio = require('../../utils/twilio')
 const {
   accountLimiter,
   resetLimiter
@@ -31,28 +32,34 @@ authRouter
     }
   )
 
-  .post('/login', accountLimiter, validateLogin(), async (req, res, next) => {
-    try {
-      const { username, password } = req.body
-      const user = await Parents.findBy({ username })
-      const verifyPw = await bcrypt.compare(password, user.password)
+  .post(
+    '/login',
+    accountLimiter,
+    validateLogin(),
+    twilio(),
+    async (req, res, next) => {
+      try {
+        const { username, password } = req.body
+        const user = await Parents.findBy({ username })
+        const verifyPw = await bcrypt.compare(password, user.password)
 
-      if (user && verifyPw) {
-        const token = generateToken(user)
-        return res.status(200).json({
-          message: `Welcome ${user.username}`,
-          parent_name: user.parent_name,
-          token
-        })
-      } else {
-        return res.status(401).json({
-          message: 'Invalid Credentials'
-        })
+        if (user && verifyPw) {
+          const token = generateToken(user)
+          return res.status(200).json({
+            message: `Welcome ${user.username}`,
+            parent_name: user.parent_name,
+            token
+          })
+        } else {
+          return res.status(401).json({
+            message: 'Invalid Credentials'
+          })
+        }
+      } catch (error) {
+        next(error)
       }
-    } catch (error) {
-      next(error)
     }
-  })
+  )
 
   .post('/initiate-reset', accountLimiter, sendgrid(), (req, res, next) => {
     try {
