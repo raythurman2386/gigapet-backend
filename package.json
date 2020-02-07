@@ -7,7 +7,7 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "server:local": "cross-env NODE_ENV=production nodemon index.js",
-    "test": "cross-env NODE_ENV=production jest --watch --verbose",
+    "test": "cross-env NODE_ENV=production jest --watch --verbose --runInBand --coverage",
     "migrate": "cross-env NODE_ENV=development knex migrate:latest",
     "rollback": "cross-env NODE_ENV=development knex migrate:rollback",
     "migrate:test": "cross-env NODE_ENV=test knex migrate:latest",
