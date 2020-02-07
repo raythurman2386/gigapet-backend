@@ -49,10 +49,6 @@ describe('Parent Route Tests', () => {
   })
 
   it('should update a parent', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .put('/api/parent/1')
       .send({
@@ -64,7 +60,7 @@ describe('Parent Route Tests', () => {
 
     expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
-    expect(res.body).toBe(1)
+    expect(res.body[0].id).toBe(1)
   })
 
   it('should fail to update a parent', async () => {
