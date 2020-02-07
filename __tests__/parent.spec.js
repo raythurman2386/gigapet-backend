@@ -64,10 +64,6 @@ describe('Parent Route Tests', () => {
   })
 
   it('should fail to update a parent', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .put('/api/parent/111')
       .send({
@@ -83,10 +79,6 @@ describe('Parent Route Tests', () => {
   })
 
   it('should delete a parent', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .delete('/api/parent/1')
       .set('authorization', token)
@@ -97,10 +89,6 @@ describe('Parent Route Tests', () => {
   })
 
   it('should fail to delete a parent', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .delete('/api/parent/111')
       .set('authorization', token)
