@@ -25,10 +25,6 @@ beforeAll(done => {
 
 describe('food routes', () => {
   it('should get food by id', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .get('/api/foods/1')
       .set('authorization', token)
@@ -39,10 +35,6 @@ describe('food routes', () => {
   })
 
   it('should fail to get food by id', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .get('/api/foods/111')
       .set('authorization', token)
@@ -53,10 +45,6 @@ describe('food routes', () => {
   })
 
   it('should add a food', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .post('/api/foods')
       .send({
@@ -69,14 +57,10 @@ describe('food routes', () => {
 
     expect(res.status).toBe(201)
     expect(res.type).toBe('application/json')
-    expect(res.body[0]).toBe(6)
+    expect(res.body[0].id).toBe(6)
   })
 
   it('should fail to add a food', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .post('/api/foods')
       .send({
@@ -92,10 +76,6 @@ describe('food routes', () => {
   })
 
   it('should update a food by id', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .put('/api/foods/1')
       .send({
@@ -112,13 +92,6 @@ describe('food routes', () => {
   })
 
   it('should fail to update a food by id', async () => {
-    const login = await supertest(server)
-      .post('/api/auth/login')
-      .send({
-        username: 'test1',
-        password: 'test'
-      })
-
     const res = await supertest(server)
       .put('/api/foods/111')
       .send({
@@ -135,10 +108,6 @@ describe('food routes', () => {
   })
 
   it('should delete a food by id', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .delete('/api/foods/1')
       .set('authorization', token)
@@ -149,10 +118,6 @@ describe('food routes', () => {
   })
 
   it('should fail to delete a food by id', async () => {
-    // const login = await supertest(server)
-    //   .post('/api/auth/login')
-    //   .send({ username: 'test1', password: 'test' })
-
     const res = await supertest(server)
       .delete('/api/foods/111')
       .set('authorization', token)
