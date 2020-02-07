@@ -40,7 +40,7 @@ describe('child routes', () => {
 
     expect(res.status).toBe(200)
     expect(res.type).toBe('application/json')
-    expect(res.body.id).toBe(6)
+    expect(res.body.child.id).toBe(1)
   })
 
   it('should fail getting child 111', async () => {
@@ -63,7 +63,7 @@ describe('child routes', () => {
 
     expect(res.status).toBe(201)
     expect(res.type).toBe('application/json')
-    expect(res.body[0]).toBe(6)
+    expect(res.body[0].id).toBe(6)
   })
 
   it('should fail to add child to db', async () => {
