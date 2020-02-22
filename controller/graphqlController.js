@@ -31,8 +31,8 @@ const schema = buildSchema(`
   }
 `)
 
-const rootResolver = {
-  food: graphqlInput => Food.findBy({ id: graphqlInput.id }),
+const foodResolver = {
+  food: graphqlInput => Food.findBy(graphqlInput),
   foods: Food.find(),
   createFood: graphqlInput => Food.add(graphqlInput),
   deleteFood: graphqlInput => Food.remove(graphqlInput.id)
@@ -40,7 +40,7 @@ const rootResolver = {
 
 const graphql = graphqlHTTP({
   schema,
-  rootValue: rootResolver,
+  rootValue: foodResolver,
   graphiql: true,
 })
 
