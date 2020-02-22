@@ -32,7 +32,7 @@ const schema = buildSchema(`
 `)
 
 const rootResolver = {
-  food: graphqlInput => Food.findBy(graphqlInput),
+  food: graphqlInput => Food.findBy({ id: graphqlInput.id }),
   foods: Food.find(),
   createFood: graphqlInput => Food.add(graphqlInput),
   deleteFood: graphqlInput => Food.remove(graphqlInput.id)
