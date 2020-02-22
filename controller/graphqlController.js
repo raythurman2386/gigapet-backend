@@ -38,3 +38,10 @@ const rootResolver = {
   deleteFood: graphqlInput => Food.remove(graphqlInput.id)
 }
 
+const graphql = graphqlHTTP({
+  schema,
+  rootValue: rootResolver,
+  graphiql: true,
+})
+
+module.exports = graphql
